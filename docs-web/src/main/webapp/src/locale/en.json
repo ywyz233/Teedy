@@ -287,6 +287,7 @@
     "menu_general_settings": "General settings",
     "menu_workflow": "Workflow",
     "menu_users": "Users",
+    "menu_register": "Register Applications",
     "menu_groups": "Groups",
     "menu_vocabularies": "Vocabularies",
     "menu_configuration": "Configuration",
@@ -338,6 +339,16 @@
         "disable_totp_title": "Disable two-factor authentication",
         "disable_totp_message": "Are you sure you want to disable two-factor authentication for this user?"
       }
+    },
+    "register": {
+      "title": "Register Applications",
+      "username": "Username",
+      "email": "Email",
+      "storage": "Required Storage",
+      "submit_time": "Submit Time",
+      "operation_title": "Operation",
+      "operation_btn_approve": "Approve",
+      "operation_btn_reject": "Reject"
     },
     "workflow": {
       "title": "Workflow configuration",

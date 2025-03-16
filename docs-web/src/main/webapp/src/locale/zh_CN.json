@@ -255,6 +255,7 @@
     "menu_general_settings": "一般设置",
     "menu_workflow": "工作流程",
     "menu_users": "用户",
+    "menu_register": "注册申请",
     "menu_groups": "群组",
     "menu_vocabularies": "词条",
     "menu_configuration": "配置",
@@ -285,6 +286,16 @@
         "password_lost_sent_title": "密码重置邮件已发送",
         "password_lost_sent_message": "密码重置电子邮件已发送至 <strong>{{ username }}</strong>"
       }
+    },
+    "register": {
+      "title": "注册申请",
+      "username": "用户名",
+      "email": "邮箱",
+      "storage": "容量需求",
+      "submit_time": "提交时间",
+      "operation_title": "操作",
+      "operation_btn_approve": "同意",
+      "operation_btn_reject": "拒绝"
     },
     "workflow": {
       "title": "工作流程<small>配置</small>",

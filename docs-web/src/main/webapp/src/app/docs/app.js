@@ -181,6 +181,15 @@ angular.module('docs',
         }
       }
     })
+    .state('settings.register', {
+      url: '/register',
+      views: {
+        'settings': {
+          templateUrl: 'partial/docs/settings.register.html',
+          controller: 'SettingsRegister'
+        }
+      }
+    })
     .state('settings.workflow', {
       url: '/workflow',
       views: {
