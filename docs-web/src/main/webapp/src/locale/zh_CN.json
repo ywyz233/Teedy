@@ -14,7 +14,10 @@
     "password_lost_sent_title": "密码重置邮件已发送",
     "password_lost_sent_message": "重置密码的邮件已经发送至<strong>{{ username }}</strong>",
     "password_lost_error_title": "密码重置出错",
-    "password_lost_error_message": "无法发送密码重置邮件，请联系您的管理员进行手动重置"
+    "password_lost_error_message": "无法发送密码重置邮件，请联系您的管理员进行手动重置",
+    "register": "注册",
+    "register_submit_title": "注册申请已发送",
+    "register_submit_message": "您的注册申请已发送，请等待管理员处理您的申请"
   },
   "passwordlost": {
     "title": "丢失密码",
@@ -26,6 +29,16 @@
     "submit": "更改我的密码",
     "error_title": "密码更改出错",
     "error_message": "您的密码恢复请求已过期，请在登录页面上提交新的请求"
+  },
+  "register": {
+    "title": "新用户",
+    "username": "用户名",
+    "email": "邮箱",
+    "storage_quota": "存储限额",
+    "storage_quota_placeholder": "存储限额 (in MB)",
+    "password": "密码",
+    "password_confirm": "密码 (确认)",
+    "submit": "注册"
   },
   "index": {
     "toggle_navigation": "切换导航",

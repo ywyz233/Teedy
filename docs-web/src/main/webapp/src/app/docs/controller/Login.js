@@ -76,4 +76,19 @@ angular.module('docs').controller('Login', function(Restangular, $scope, $rootSc
       });
     });
   };
+
+  $scope.register = function(){
+    $uibModal.open({
+      templateUrl: 'partial/docs/register.html',
+      controller: 'ModalRegister'
+    }).result.then(function (user) {
+      if(user === null){
+        return;
+      }
+      var title = $translate.instant('login.register_submit_title');
+      var msg = $translate.instant('login.register_submit_message');
+      var btns = [{result: 'ok', label: $translate.instant('ok'), cssClass: 'btn-primary'}];
+      $dialog.messageBox(title, msg, btns);
+    });
+  };
 });
