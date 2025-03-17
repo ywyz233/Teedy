@@ -7,7 +7,7 @@
 
 angular.module('docs').controller('ModalRegister', function ($scope, $uibModalInstance) {
     // $scope.username = '';
-    $scope.close = function(user) {
-        $uibModalInstance.close(user);
+    $scope.close = function(registerUser) {
+        $uibModalInstance.close(registerUser);
     }
 });

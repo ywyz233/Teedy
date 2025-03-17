@@ -17,7 +17,8 @@
     "password_lost_error_message": "Unable to send a password reset email, please contact your administrator for a manual reset",
     "register": "Register",
     "register_submit_title":"Register Application Sent",
-    "register_submit_message": "Your register application is successfully sent, please wait for the approval."
+    "register_submit_message": "Your register application is successfully sent, please wait for the approval.",
+    "register_submit_error_message": "Username is registered or registering"
   },
   "passwordlost": {
     "title": "Password lost",
@@ -346,9 +347,13 @@
       "email": "Email",
       "storage": "Required Storage",
       "submit_time": "Submit Time",
-      "operation_title": "Operation",
+      "status": "Status",
       "operation_btn_approve": "Approve",
-      "operation_btn_reject": "Reject"
+      "operation_btn_reject": "Reject",
+      "status_approved": "Approved",
+      "status_rejected": "Rejected",
+      "operated_time": "Operated Time",
+      "operated_time_null": "Not operated"
     },
     "workflow": {
       "title": "Workflow configuration",

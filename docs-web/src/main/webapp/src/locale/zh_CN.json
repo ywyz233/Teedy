@@ -17,7 +17,8 @@
     "password_lost_error_message": "无法发送密码重置邮件，请联系您的管理员进行手动重置",
     "register": "注册",
     "register_submit_title": "注册申请已发送",
-    "register_submit_message": "您的注册申请已发送，请等待管理员处理您的申请"
+    "register_submit_message": "您的注册申请已发送，请等待管理员处理您的申请",
+    "register_submit_error_message": "用户名已注册或正在注册"
   },
   "passwordlost": {
     "title": "丢失密码",
@@ -293,9 +294,13 @@
       "email": "邮箱",
       "storage": "容量需求",
       "submit_time": "提交时间",
-      "operation_title": "操作",
+      "status": "状态",
       "operation_btn_approve": "同意",
-      "operation_btn_reject": "拒绝"
+      "operation_btn_reject": "拒绝",
+      "status_approved": "已同意",
+      "status_rejected": "已拒绝",
+      "operated_time": "操作时间",
+      "operated_time_null": "未操作"
     },
     "workflow": {
       "title": "工作流程<small>配置</small>",

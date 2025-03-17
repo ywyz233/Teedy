@@ -81,14 +81,21 @@ angular.module('docs').controller('Login', function(Restangular, $scope, $rootSc
     $uibModal.open({
       templateUrl: 'partial/docs/register.html',
       controller: 'ModalRegister'
-    }).result.then(function (user) {
-      if(user === null){
+    }).result.then(function (registerUser) {
+      if(registerUser === null){
         return;
       }
-      var title = $translate.instant('login.register_submit_title');
-      var msg = $translate.instant('login.register_submit_message');
-      var btns = [{result: 'ok', label: $translate.instant('ok'), cssClass: 'btn-primary'}];
-      $dialog.messageBox(title, msg, btns);
+      Restangular.one("registerUser/register").put(registerUser).then(function () {
+        var title = $translate.instant('login.register_submit_title');
+        var msg = $translate.instant('login.register_submit_message');
+        var btns = [{result: 'ok', label: $translate.instant('ok'), cssClass: 'btn-primary'}];
+        $dialog.messageBox(title, msg, btns);
+      }, function () {
+        var title = $translate.instant('login.register_submit_title');
+        var msg = $translate.instant('login.register_submit_error_message');
+        var btns = [{result: 'ok', label: $translate.instant('ok'), cssClass: 'btn-primary'}];
+        $dialog.messageBox(title, msg, btns);
+      });
     });
   };
 });

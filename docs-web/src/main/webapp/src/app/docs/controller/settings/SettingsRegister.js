@@ -3,12 +3,16 @@
  */
 angular.module('docs').controller('SettingsRegister', function(Restangular ,$scope, $state, $dialog, $translate){
     $scope.loadUsers = function(){
-        $scope.users = [{"username": "Adam", "email": "132@123", "storage": 132, "submit_time": "2025/03/26"}];
+        Restangular.one("registerUser/list").get().then(function(data) {
+            $scope.users = data.register_users;
+        });
     };
 
     $scope.loadUsers();
 
-    $scope.approve = function() {
+    $scope.approve = function(user) {
+        user.status = 1;
+        user.operated_time = Date.now();
         $dialog.messageBox("Approved", "Approved", [
             {
                 result: 'ok',
@@ -17,7 +21,9 @@ angular.module('docs').controller('SettingsRegister', function(Restangular ,$sco
             }
         ]);
     }
-    $scope.reject = function() {
+    $scope.reject = function(user) {
+        user.status = 2;
+        user.operated_time = Date.now();
         $dialog.messageBox("Rejected", "Rejected", [
             {
                 result: 'ok',
