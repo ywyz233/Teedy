@@ -300,7 +300,13 @@
       "status_approved": "已同意",
       "status_rejected": "已拒绝",
       "operated_time": "操作时间",
-      "operated_time_null": "未操作"
+      "operated_time_null": "未操作",
+      "operation_result_title": "操作结果",
+      "operation_result_success": "操作成功",
+      "operation_result_fail": "操作失败",
+      "operation_result_invalid_status": "非法状态",
+      "operation_result_no_such_user": "用户不存在",
+      "operation_result_server_error": "服务器错误"
     },
     "workflow": {
       "title": "工作流程<small>配置</small>",

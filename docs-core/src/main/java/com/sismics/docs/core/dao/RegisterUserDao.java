@@ -1,8 +1,10 @@
 package com.sismics.docs.core.dao;
 
 import com.sismics.docs.core.constant.AuditLogType;
+import com.sismics.docs.core.constant.Constants;
 import com.sismics.docs.core.dao.dto.RegisterUserDto;
 import com.sismics.docs.core.model.jpa.RegisterUser;
+import com.sismics.docs.core.model.jpa.User;
 import com.sismics.docs.core.util.AuditLogUtil;
 import com.sismics.util.context.ThreadLocalContext;
 import jakarta.persistence.EntityManager;
@@ -70,5 +72,42 @@ public class RegisterUserDao {
             registerUserDtoList.add(registerUserDto);
         }
         return registerUserDtoList;
+    }
+
+    public Long updateStatus(String id, Integer status) throws Exception{
+        if(status < 0 || status > 2){
+            throw new Exception("InvalidStatus");
+        }
+
+        EntityManager em = ThreadLocalContext.get().getEntityManager();
+        Query q1 = em.createQuery("select u from RegisterUser u where u.id = :id and status = 0");
+        q1.setParameter("id", id);
+        List<?> l1 = q1.getResultList();
+        if(l1.isEmpty()){
+            throw new Exception("NoSuchUser");
+        }
+        if(l1.size() > 1){
+            throw new Exception("MultipleUser");
+        }
+        Date date = new Date();
+        RegisterUser registerUser = (RegisterUser) l1.get(0);
+        registerUser.setStatus(status);
+        registerUser.setOperatedTime(date);
+
+        if(status == 1){
+            User user = new User();
+            user.setRoleId(Constants.DEFAULT_USER_ROLE);
+            user.setUsername(registerUser.getUsername());
+            user.setPassword(registerUser.getPassword());
+            user.setEmail(registerUser.getEmail());
+            user.setStorageQuota(registerUser.getStorage());
+            user.setOnboarding(true);
+
+            UserDao userDao = new UserDao();
+            userDao.create(user, user.getUsername());
+        }
+
+        AuditLogUtil.create(registerUser, AuditLogType.UPDATE, registerUser.getUsername());
+        return date.getTime();
     }
 }

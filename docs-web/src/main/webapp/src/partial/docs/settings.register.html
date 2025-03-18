@@ -22,10 +22,10 @@
           <td>{{ user.storage }}</td>
           <td>{{ user.submit_time | date: "yyyy/MM/dd hh:mm:ss" }}</td>
           <td>
-            <button class="btn btn-primary btn-sm", ng-click="approve(user)", ng-if="user.status===0">
+            <button class="btn btn-primary btn-sm", ng-click="operate(user, 1)", ng-if="user.status===0">
               <span class="fas fa-edit"></span> {{ 'settings.register.operation_btn_approve' | translate }}
             </button>
-            <button class="btn btn-danger btn-sm", ng-click="reject(user)", ng-if="user.status===0">
+            <button class="btn btn-danger btn-sm", ng-click="operate(user, 2)", ng-if="user.status===0">
               <span class="fas fa-trash"></span> {{ 'settings.register.operation_btn_reject' | translate }}
             </button>
             <div ng-if="user.status===1">{{ 'settings.register.status_approved' | translate }}</div>

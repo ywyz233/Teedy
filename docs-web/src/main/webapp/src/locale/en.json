@@ -353,7 +353,13 @@
       "status_approved": "Approved",
       "status_rejected": "Rejected",
       "operated_time": "Operated Time",
-      "operated_time_null": "Not operated"
+      "operated_time_null": "Not operated",
+      "operation_result_title": "Operation Result",
+      "operation_result_success": "Operation succeeded",
+      "operation_result_fail": "Operation failed",
+      "operation_result_invalid_status": "Invalid status",
+      "operation_result_no_such_user": "No such user",
+      "operation_result_server_error": "Server error"
     },
     "workflow": {
       "title": "Workflow configuration",

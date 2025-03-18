@@ -12,6 +12,7 @@ import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 import jakarta.transaction.SystemException;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
@@ -59,7 +60,6 @@ public class RegisterUserResource extends BaseResource{
             }
         }
 
-        System.out.println("RegisterUser: " + registerUser);
         JsonObjectBuilder reponse = Json.createObjectBuilder().add("status", "ok");
         return Response.ok().entity(reponse.build()).build();
     }
@@ -93,13 +93,39 @@ public class RegisterUserResource extends BaseResource{
         return Response.ok().entity(response.build()).build();
     }
 
-    @PATCH
+    @POST
     @Path("/operate")
     public Response updateStatus(
-            @FormParam("username") String username,
-            @FormParam("new_status") Integer status
+            @FormParam("id") String id,
+            @FormParam("status") Integer status
     ){
-        return Response.ok().build();
+        RegisterUserDao registerUserDao = new RegisterUserDao();
+        JsonObjectBuilder response = Json.createObjectBuilder();
+        Long operated_time;
+        try{
+            operated_time = registerUserDao.updateStatus(id, status);
+            response.add("status", status);
+            response.add("operated_time", operated_time);
+        } catch(Exception e) {
+            if("InvalidStatus".equals(e.getMessage())) {
+                response.add("error", "invalid status");
+                return Response.status(Response.Status.BAD_REQUEST).entity(response.build()).build();
+            }
+            else if("NoSuchUser".equals(e.getMessage())) {
+                response.add("error", "no such user");
+                return Response.status(Response.Status.BAD_REQUEST).entity(response.build()).build();
+            }
+            else if("MultipleUser".equals(e.getMessage())) {
+                response.add("error", "server error");
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response.build()).build();
+            } else if("AlreadyExistingUsername".equals(e.getMessage())) {
+                response.add("error", "server error");
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response.build()).build();
+            }
+
+        }
+
+        return Response.ok().entity(response.build()).build();
     }
 
 }

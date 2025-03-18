@@ -85,6 +85,7 @@ angular.module('docs').controller('Login', function(Restangular, $scope, $rootSc
       if(registerUser === null){
         return;
       }
+      registerUser.storage *= 1000000;
       Restangular.one("registerUser/register").put(registerUser).then(function () {
         var title = $translate.instant('login.register_submit_title');
         var msg = $translate.instant('login.register_submit_message');
