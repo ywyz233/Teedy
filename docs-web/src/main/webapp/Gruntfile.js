@@ -54,16 +54,38 @@ module.exports = function(grunt) {
         dest: 'dist/style/style.min.css'
       }
     },
-    uglify: {
+    terser: {
       docs: {
-        src: 'dist/docs.js',
-        dest: 'dist/docs.min.js'
+        options: {
+          mangle: true,
+          compress: true,
+          ecma: 6, // 支持 ECMAScript 6 语法
+        },
+        files: {
+          'dist/docs.min.js': ['dist/docs.js']
+        }
       },
       share: {
-        src: 'dist/share.js',
-        dest: 'dist/share.min.js'
+        options: {
+          mangle: true,
+          compress: true,
+          ecma: 6, // 支持 ECMAScript 6 语法
+        },
+        files: {
+          'dist/share.min.js': ['dist/share.js']
+        }
       }
     },
+    // uglify: {
+    //   docs: {
+    //     src: 'dist/docs.js',
+    //     dest: 'dist/docs.min.js'
+    //   },
+    //   share: {
+    //     src: 'dist/share.js',
+    //     dest: 'dist/share.min.js'
+    //   }
+    // },
     ngtemplates: {
       docs: {
         cwd: 'src',
@@ -150,7 +172,8 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  // grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-terser');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-cleanempty');
   grunt.loadNpmTasks('grunt-htmlrefs');
@@ -163,7 +186,10 @@ module.exports = function(grunt) {
 
   // Default tasks.
   grunt.registerTask('default', ['clean:init', 'ngAnnotate', 'concat:docs', 'concat:share', 'less', 'concat:css',
-    'cssmin', 'uglify:docs', 'uglify:share', 'ngtemplates:docs', 'ngtemplates:share', 'copy', 'clean:after',
+    'cssmin', 'terser:docs', 'terser:share', 'ngtemplates:docs', 'ngtemplates:share', 'copy', 'clean:after',
     'cleanempty', 'htmlrefs:index', 'htmlrefs:share', 'replace', 'apidoc']);
+  // grunt.registerTask('default', ['clean:init', 'ngAnnotate', 'concat:docs', 'concat:share', 'less', 'concat:css',
+  //   'cssmin', 'uglify:docs', 'uglify:share', 'ngtemplates:docs', 'ngtemplates:share', 'copy', 'clean:after',
+  //   'cleanempty', 'htmlrefs:index', 'htmlrefs:share', 'replace', 'apidoc']);
 
 };

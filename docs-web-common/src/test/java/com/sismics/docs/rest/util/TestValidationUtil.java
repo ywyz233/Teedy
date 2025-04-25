@@ -8,11 +8,12 @@ import org.junit.Test;
 /**
  * Test the validations.
  *
- * @author jtremeaux 
+ * @author jtremeaux
  */
 public class TestValidationUtil {
     @Test
     public void testValidateHttpUrlFail() throws Exception {
+        System.out.println("TEST RUNNING");
         ValidationUtil.validateHttpUrl("http://www.google.com", "url");
         ValidationUtil.validateHttpUrl("https://www.google.com", "url");
         ValidationUtil.validateHttpUrl(" https://www.google.com ", "url");
