@@ -1,10 +1,7 @@
 package com.sismics.docs.rest.resource;
 
 import com.google.common.collect.Lists;
-import com.sismics.docs.core.constant.AclType;
-import com.sismics.docs.core.constant.ConfigType;
-import com.sismics.docs.core.constant.Constants;
-import com.sismics.docs.core.constant.PermType;
+import com.sismics.docs.core.constant.*;
 import com.sismics.docs.core.dao.AclDao;
 import com.sismics.docs.core.dao.ContributorDao;
 import com.sismics.docs.core.dao.DocumentDao;
@@ -29,11 +26,7 @@ import com.sismics.docs.core.model.context.AppContext;
 import com.sismics.docs.core.model.jpa.Document;
 import com.sismics.docs.core.model.jpa.File;
 import com.sismics.docs.core.model.jpa.User;
-import com.sismics.docs.core.util.ConfigUtil;
-import com.sismics.docs.core.util.DocumentUtil;
-import com.sismics.docs.core.util.FileUtil;
-import com.sismics.docs.core.util.MetadataUtil;
-import com.sismics.docs.core.util.PdfUtil;
+import com.sismics.docs.core.util.*;
 import com.sismics.docs.core.util.jpa.PaginatedList;
 import com.sismics.docs.core.util.jpa.PaginatedLists;
 import com.sismics.docs.core.util.jpa.SortCriteria;
@@ -281,6 +274,15 @@ public class DocumentResource extends BaseResource {
             }
 
             document.add("files", filesArrayBuilder);
+        }
+
+        // Add user activity log
+        if(!this.principal.isGuest()){
+            UserActivityLogUtil.createDocumentActivityLog(
+                    this.principal.getId(),
+                    UserActivityLogType.VIEW_DOCUMENT,
+                    documentId
+            );
         }
 
         return Response.ok().entity(document.build()).build();
