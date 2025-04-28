@@ -3,9 +3,8 @@ package com.sismics.docs.rest.resource;
 import com.sismics.docs.core.constant.UserActivityLogType;
 import com.sismics.docs.core.dao.UserActivityLogDao;
 import com.sismics.docs.core.dao.criteria.UserActivityLogCriteria;
-import com.sismics.docs.core.dao.dto.LoginStatisticsDto;
 import com.sismics.docs.core.dao.dto.UserActivityLogDto;
-import com.sismics.docs.core.model.jpa.UserActivityLog;
+import com.sismics.docs.core.dao.dto.UserActivityStatDto;
 import com.sismics.docs.core.util.UserActivityLogUtil;
 import com.sismics.rest.exception.ForbiddenClientException;
 import jakarta.json.Json;
@@ -69,8 +68,9 @@ public class UserActivityLogResource extends BaseResource{
     }
 
     @GET
-    @Path("/login-stat")
-    public Response loginStat(
+    @Path("/{resource}-stat")
+    public Response getStat(
+        @PathParam("resource") String resource,
         @QueryParam("scale") String scale,
         @QueryParam("startTime") String startTime,
         @QueryParam("endTime") String endTime
@@ -82,34 +82,51 @@ public class UserActivityLogResource extends BaseResource{
         LocalDateTime startTimeStd = UserActivityLogUtil.getLocalDateTime(startTime, scale, true);
         LocalDateTime endTimeStd = UserActivityLogUtil.getLocalDateTime(endTime, scale, false);
         if(startTimeStd == null || endTimeStd == null){
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("err", "null time");
+            return Response.status(Response.Status.BAD_REQUEST).entity(response.build()).build();
         }
 
         UserActivityLogDao userActivityLogDao = new UserActivityLogDao();
         UserActivityLogCriteria userActivityLogCriteria = new UserActivityLogCriteria();
         List<UserActivityLogType> types = new ArrayList<>();
-        types.add(UserActivityLogType.LOGIN);
+        switch(resource){
+            case "login": {
+                types.add(UserActivityLogType.LOGIN);
+                break;
+            }
+            case "register": {
+                types.add(UserActivityLogType.REGISTER);
+                break;
+            }
+            default:{
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                response.add("err", "bad request");
+                return Response.status(Response.Status.BAD_REQUEST).entity(response.build()).build();
+            }
+        }
         userActivityLogCriteria.setTypes(types);
         userActivityLogCriteria.setStartTime(startTimeStd);
         userActivityLogCriteria.setEndTime(endTimeStd);
 
-        List<LoginStatisticsDto> loginStatisticsDtos =
-                userActivityLogDao.loginStatistics(userActivityLogCriteria, scale);
-        loginStatisticsDtos = UserActivityLogUtil.fillMissingDates(
-                loginStatisticsDtos,
+        List<UserActivityStatDto> statisticsDtos =
+                userActivityLogDao.getStatistics(userActivityLogCriteria, scale);
+        statisticsDtos = UserActivityLogUtil.fillMissingDates(
+                statisticsDtos,
                 scale,
                 startTimeStd,
                 endTimeStd
         );
-        if(loginStatisticsDtos == null){
-            return Response.status(Response.Status.BAD_REQUEST).build();
+        if(statisticsDtos == null){
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("err", "null result");
+            return Response.status(Response.Status.BAD_REQUEST).entity(response.build()).build();
         }
-
         JsonArrayBuilder logs = Json.createArrayBuilder();
-        for(LoginStatisticsDto loginStatisticsDto : loginStatisticsDtos){
+        for(UserActivityStatDto statisticsDto : statisticsDtos){
             JsonObjectBuilder log = Json.createObjectBuilder();
-            log.add("date", loginStatisticsDto.getDate());
-            log.add("cnt", loginStatisticsDto.getLoginCount());
+            log.add("date", statisticsDto.getDate());
+            log.add("cnt", statisticsDto.getCount());
             logs.add(log.build());
         }
         JsonObjectBuilder response = Json.createObjectBuilder();

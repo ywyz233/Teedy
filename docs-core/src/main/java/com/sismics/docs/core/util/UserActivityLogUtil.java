@@ -5,7 +5,7 @@ import com.sismics.docs.core.constant.UserActivityLogType;
 import com.sismics.docs.core.dao.DocumentDao;
 import com.sismics.docs.core.dao.UserActivityLogDao;
 import com.sismics.docs.core.dao.UserDao;
-import com.sismics.docs.core.dao.dto.LoginStatisticsDto;
+import com.sismics.docs.core.dao.dto.UserActivityStatDto;
 import com.sismics.docs.core.model.jpa.UserActivityLog;
 import org.joda.time.DateTime;
 
@@ -62,18 +62,18 @@ public class UserActivityLogUtil {
         userActivityLogDao.create(log);
     }
 
-    public static List<LoginStatisticsDto> fillMissingDates(
-            List<LoginStatisticsDto> loginStatisticsDtos,
+    public static List<UserActivityStatDto> fillMissingDates(
+            List<UserActivityStatDto> statisticsDtos,
             String scale,
             LocalDateTime startTime,
             LocalDateTime endTime
     ) {
-        if (loginStatisticsDtos == null || loginStatisticsDtos.isEmpty()) return null;
+        if (statisticsDtos == null) return null;
         if (startTime.isAfter(endTime)) return null;
 
-        Map<String, LoginStatisticsDto> timeMap = new HashMap<>();
-        for (LoginStatisticsDto dto : loginStatisticsDtos) timeMap.put(dto.getDate(), dto);
-        List<LoginStatisticsDto> result = new ArrayList<>();
+        Map<String, UserActivityStatDto> timeMap = new HashMap<>();
+        for (UserActivityStatDto dto : statisticsDtos) timeMap.put(dto.getDate(), dto);
+        List<UserActivityStatDto> result = new ArrayList<>();
         DateTimeFormatter formatter;
         switch (scale) {
             case "daily": formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); break;
@@ -87,8 +87,8 @@ public class UserActivityLogUtil {
             while (tmp.isBefore(endTime)) {
                 String timeIdx = tmp.format(formatter);
                 if (!timeMap.containsKey(timeIdx)) {
-                    LoginStatisticsDto dto = new LoginStatisticsDto();
-                    dto.setDate(timeIdx).setLoginCount(0L);
+                    UserActivityStatDto dto = new UserActivityStatDto();
+                    dto.setDate(timeIdx).setCount(0L);
                     result.add(dto);
                 } else {
                     result.add(timeMap.get(timeIdx));

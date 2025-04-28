@@ -2,8 +2,8 @@ package com.sismics.docs.core.dao;
 
 import com.sismics.docs.core.constant.UserActivityLogType;
 import com.sismics.docs.core.dao.criteria.UserActivityLogCriteria;
-import com.sismics.docs.core.dao.dto.LoginStatisticsDto;
 import com.sismics.docs.core.dao.dto.UserActivityLogDto;
+import com.sismics.docs.core.dao.dto.UserActivityStatDto;
 import com.sismics.docs.core.model.jpa.UserActivityLog;
 import com.sismics.docs.core.util.jpa.QueryParam;
 import com.sismics.docs.core.util.jpa.QueryUtil;
@@ -25,7 +25,7 @@ public class UserActivityLogDao {
         return userActivityLog.getId();
     }
 
-    public List<LoginStatisticsDto> loginStatistics(
+    public List<UserActivityStatDto> getStatistics(
             UserActivityLogCriteria criteria,
             String scale
     ) {
@@ -81,16 +81,16 @@ public class UserActivityLogDao {
         @SuppressWarnings("unchecked")
         List<Object[]> l = QueryUtil.getNativeQuery(queryParam).getResultList();
 
-        List<LoginStatisticsDto> loginStatisticsDtos = new ArrayList<>();
+        List<UserActivityStatDto> statisticsDtos = new ArrayList<>();
         for(Object[] row : l){
             int i = 0;
-            LoginStatisticsDto dto = new LoginStatisticsDto();
+            UserActivityStatDto dto = new UserActivityStatDto();
             dto.setDate((String) row[i++]);
-            dto.setLoginCount((Long) row[i++]);
-            loginStatisticsDtos.add(dto);
+            dto.setCount((Long) row[i++]);
+            statisticsDtos.add(dto);
         }
 
-        return loginStatisticsDtos;
+        return statisticsDtos;
     }
 
     public List<UserActivityLogDto> findByCriteria(UserActivityLogCriteria criteria, SortCriteria sortCriteria){

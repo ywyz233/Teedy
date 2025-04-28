@@ -373,7 +373,18 @@
         "annually": "annually"
       },
       "login_activity_start_date": "Start Date",
-      "login_activity_end_date": "End Date"
+      "login_activity_end_date": "End Date",
+
+      "register_activity_title": "New Account Statistics",
+      "register_activity_ylabel": "number of new accounts",
+      "register_activity_scale": {
+        "title": "scale",
+        "daily": "daily",
+        "monthly": "monthly",
+        "annually": "annually"
+      },
+      "register_activity_start_date": "Start Date",
+      "register_activity_end_date": "End Date"
     },
     "workflow": {
       "title": "Workflow configuration",

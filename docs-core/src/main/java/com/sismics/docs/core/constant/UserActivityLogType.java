@@ -22,7 +22,12 @@ public enum UserActivityLogType {
     /**
      * Login
      */
-    LOGIN(4);
+    LOGIN(4),
+
+    /**
+     * Register
+     */
+    REGISTER(5);
 
     private final int code;
     private static final Map<Integer, UserActivityLogType> CODE_MAP = new HashMap<>();

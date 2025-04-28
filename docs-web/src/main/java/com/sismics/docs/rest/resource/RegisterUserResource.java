@@ -1,8 +1,10 @@
 package com.sismics.docs.rest.resource;
 
+import com.sismics.docs.core.constant.UserActivityLogType;
 import com.sismics.docs.core.dao.RegisterUserDao;
 import com.sismics.docs.core.dao.dto.RegisterUserDto;
 import com.sismics.docs.core.model.jpa.RegisterUser;
+import com.sismics.docs.core.util.UserActivityLogUtil;
 import com.sismics.rest.exception.ClientException;
 import com.sismics.rest.exception.ServerException;
 import com.sismics.rest.util.ValidationUtil;

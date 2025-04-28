@@ -320,7 +320,18 @@
         "annually": "每年"
       },
       "login_activity_start_date": "开始时间",
-      "login_activity_end_date": "结束时间"
+      "login_activity_end_date": "结束时间",
+
+      "register_activity_title": "新用户统计",
+      "register_activity_ylabel": "新用户数量",
+      "register_activity_scale": {
+        "title": "粒度",
+        "daily": "每日",
+        "monthly": "每月",
+        "annually": "每年"
+      },
+      "register_activity_start_date": "开始时间",
+      "register_activity_end_date": "结束时间"
     },
     "workflow": {
       "title": "工作流程<small>配置</small>",
