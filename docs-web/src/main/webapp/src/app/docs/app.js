@@ -190,6 +190,15 @@ angular.module('docs',
         }
       }
     })
+    .state('settings.useractivity', {
+      url: '/user-activity',
+      views: {
+        'settings': {
+          templateUrl: 'partial/docs/settings.useractivity.html',
+          controller: 'SettingsUserActivity'
+        }
+      }
+    })
     .state('settings.workflow', {
       url: '/workflow',
       views: {

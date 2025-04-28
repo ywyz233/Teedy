@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import com.sismics.docs.core.constant.AclTargetType;
 import com.sismics.docs.core.constant.ConfigType;
 import com.sismics.docs.core.constant.Constants;
+import com.sismics.docs.core.constant.UserActivityLogType;
 import com.sismics.docs.core.dao.*;
 import com.sismics.docs.core.dao.criteria.GroupCriteria;
 import com.sismics.docs.core.dao.criteria.UserCriteria;
@@ -17,6 +18,7 @@ import com.sismics.docs.core.model.context.AppContext;
 import com.sismics.docs.core.model.jpa.*;
 import com.sismics.docs.core.util.ConfigUtil;
 import com.sismics.docs.core.util.RoutingUtil;
+import com.sismics.docs.core.util.UserActivityLogUtil;
 import com.sismics.docs.core.util.authentication.AuthenticationUtil;
 import com.sismics.docs.core.util.jpa.SortCriteria;
 import com.sismics.docs.rest.constant.BaseFunction;
@@ -343,6 +345,13 @@ public class UserResource extends BaseResource {
         JsonObjectBuilder response = Json.createObjectBuilder();
         int maxAge = longLasted ? TokenBasedSecurityFilter.TOKEN_LONG_LIFETIME : -1;
         NewCookie cookie = new NewCookie(TokenBasedSecurityFilter.COOKIE_NAME, token, "/", null, null, maxAge, false);
+
+        // Add User Activity
+        UserActivityLogUtil.createUserActivityLog(
+                user.getId(),
+                UserActivityLogType.LOGIN
+        );
+
         return Response.ok().entity(response.build()).cookie(cookie).build();
     }
 

@@ -5,6 +5,7 @@ import com.sismics.docs.core.constant.PermType;
 import com.sismics.docs.core.dao.dto.DocumentDto;
 import com.sismics.docs.core.model.jpa.Document;
 import com.sismics.docs.core.util.AuditLogUtil;
+import com.sismics.docs.core.util.UserActivityLogUtil;
 import com.sismics.util.context.ThreadLocalContext;
 
 import jakarta.persistence.EntityManager;

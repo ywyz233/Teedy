@@ -289,6 +289,7 @@
     "menu_workflow": "Workflow",
     "menu_users": "Users",
     "menu_register": "Register Applications",
+    "menu_user_activity": "User Activity",
     "menu_groups": "Groups",
     "menu_vocabularies": "Vocabularies",
     "menu_configuration": "Configuration",
@@ -360,6 +361,30 @@
       "operation_result_invalid_status": "Invalid status",
       "operation_result_no_such_user": "No such user",
       "operation_result_server_error": "Server error"
+    },
+    "user_activity": {
+      "title": "User Activity",
+      "login_activity_title": "Login Statistics",
+      "login_activity_ylabel": "Number of logins",
+      "login_activity_scale": {
+        "title": "scale",
+        "daily": "daily",
+        "monthly": "monthly",
+        "annually": "annually"
+      },
+      "login_activity_start_date": "Start Date",
+      "login_activity_end_date": "End Date",
+
+      "register_activity_title": "New Account Statistics",
+      "register_activity_ylabel": "number of new accounts",
+      "register_activity_scale": {
+        "title": "scale",
+        "daily": "daily",
+        "monthly": "monthly",
+        "annually": "annually"
+      },
+      "register_activity_start_date": "Start Date",
+      "register_activity_end_date": "End Date"
     },
     "workflow": {
       "title": "Workflow configuration",

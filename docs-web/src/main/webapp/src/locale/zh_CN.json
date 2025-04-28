@@ -257,6 +257,7 @@
     "menu_workflow": "工作流程",
     "menu_users": "用户",
     "menu_register": "注册申请",
+    "menu_user_activity": "用户活动",
     "menu_groups": "群组",
     "menu_vocabularies": "词条",
     "menu_configuration": "配置",
@@ -307,6 +308,30 @@
       "operation_result_invalid_status": "非法状态",
       "operation_result_no_such_user": "用户不存在",
       "operation_result_server_error": "服务器错误"
+    },
+    "user_activity": {
+      "title": "用户活动",
+      "login_activity_title": "登录统计",
+      "login_activity_ylabel": "登录次数",
+      "login_activity_scale": {
+        "title": "粒度",
+        "daily": "每日",
+        "monthly": "每月",
+        "annually": "每年"
+      },
+      "login_activity_start_date": "开始时间",
+      "login_activity_end_date": "结束时间",
+
+      "register_activity_title": "新用户统计",
+      "register_activity_ylabel": "新用户数量",
+      "register_activity_scale": {
+        "title": "粒度",
+        "daily": "每日",
+        "monthly": "每月",
+        "annually": "每年"
+      },
+      "register_activity_start_date": "开始时间",
+      "register_activity_end_date": "结束时间"
     },
     "workflow": {
       "title": "工作流程<small>配置</small>",

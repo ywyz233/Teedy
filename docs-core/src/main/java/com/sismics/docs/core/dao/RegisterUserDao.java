@@ -2,10 +2,12 @@ package com.sismics.docs.core.dao;
 
 import com.sismics.docs.core.constant.AuditLogType;
 import com.sismics.docs.core.constant.Constants;
+import com.sismics.docs.core.constant.UserActivityLogType;
 import com.sismics.docs.core.dao.dto.RegisterUserDto;
 import com.sismics.docs.core.model.jpa.RegisterUser;
 import com.sismics.docs.core.model.jpa.User;
 import com.sismics.docs.core.util.AuditLogUtil;
+import com.sismics.docs.core.util.UserActivityLogUtil;
 import com.sismics.util.context.ThreadLocalContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -93,7 +95,6 @@ public class RegisterUserDao {
         RegisterUser registerUser = (RegisterUser) l1.get(0);
         registerUser.setStatus(status);
         registerUser.setOperatedTime(date);
-
         if(status == 1){
             User user = new User();
             user.setRoleId(Constants.DEFAULT_USER_ROLE);
@@ -104,9 +105,9 @@ public class RegisterUserDao {
             user.setOnboarding(true);
 
             UserDao userDao = new UserDao();
-            userDao.create(user, user.getUsername());
+            String userId = userDao.create(user, user.getUsername());
+            UserActivityLogUtil.createUserActivityLog(userId, UserActivityLogType.REGISTER);
         }
-
         AuditLogUtil.create(registerUser, AuditLogType.UPDATE, registerUser.getUsername());
         return date.getTime();
     }
