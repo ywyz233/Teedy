@@ -14,8 +14,11 @@ pipeline {
         stage('Test') {
             steps{
                 script {
-                    // 打印凭证是否加载
-                    echo "Docker Credentials ID: ${DOCKER_HUB_CREDENTIALS}"
+                    // 使用 withCredentials 来安全处理凭证
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        // 输出非敏感信息
+                        echo "Docker Credentials are successfully loaded"
+                    }
                 }
             }
         }
