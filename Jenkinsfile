@@ -16,8 +16,7 @@ pipeline {
                 script {
                     // 使用 withCredentials 来安全处理凭证
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        // 输出非敏感信息
-                        echo "Docker Credentials are successfully loaded"
+                        echo "Docker Username: ${DOCKER_USERNAME}"
                     }
                 }
             }
