@@ -11,6 +11,15 @@ pipeline {
     }
 
     stages {
+        stage('Test') {
+            steps{
+                script {
+                    // 打印凭证是否加载
+                    echo "Docker Credentials ID: ${DOCKER_HUB_CREDENTIALS}"
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 checkout scmGit(
