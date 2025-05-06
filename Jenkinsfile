@@ -4,24 +4,13 @@ pipeline {
     environment {
         // define environment variable
         // Jenkins credentials configuration
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials') // DockerHub credentials ID store in Jenkins
+        DOCKER_HUB_CREDENTIALS = 'dockerhub-credentials' // DockerHub credentials ID store in Jenkins
         // Docker Hub Repository's name
         DOCKER_IMAGE = 'ywyz233/teedy' // your Docker Hub user name and Repository's name
         DOCKER_TAG = "${env.BUILD_NUMBER}" // use build number as tag
     }
 
     stages {
-        stage('Test') {
-            steps{
-                script {
-                    // 使用 withCredentials 来安全处理凭证
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        echo "Docker Username: ${DOCKER_USERNAME}"
-                    }
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 checkout scmGit(
@@ -50,7 +39,7 @@ pipeline {
                 script {
                     // sign in Docker Hub
                     docker.withRegistry('https://registry.hub.docker.com',
-                    'dockerhub-credentials') {
+                    "${DOCKER_HUB_CREDENTIALS}") {
                         // push image
                         docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").push()
 
@@ -68,9 +57,19 @@ pipeline {
                     // stop then remove containers if exists
                     sh 'docker stop teedy-container-8081 || true'
                     sh 'docker rm teedy-container-8081 || true'
+                    sh 'docker stop teedy-container-8082 || true'
+                    sh 'docker rm teedy-container-8082 || true'
+                    sh 'docker stop teedy-container-8083 || true'
+                    sh 'docker rm teedy-container-8083 || true'
                     // run Container
                     docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").run(
                         '--name teedy-container-8081 -d -p 8081:8080'
+                    )
+                    docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").run(
+                        '--name teedy-container-8082 -d -p 8082:8080'
+                    )
+                    docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").run(
+                        '--name teedy-container-8083 -d -p 8083:8080'
                     )
                     // Optional: list all teedy-containers
                     sh 'docker ps --filter "name=teedy-container"'
