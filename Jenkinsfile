@@ -50,7 +50,7 @@ pipeline {
                 script {
                     // sign in Docker Hub
                     docker.withRegistry('https://registry.hub.docker.com',
-                    'DOCKER_HUB_CREDENTIALS') {
+                    'docker-credentials') {
                         // push image
                         docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").push()
 
